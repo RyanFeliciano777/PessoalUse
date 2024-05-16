@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Lucro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f06, #8e44ad);
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Aumenta a largura do container */
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+        }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #8e44ad;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #f06;
+        }
+        .result {
+            font-size: 28px;
+            font-weight: bold;
+            color: green;
+            margin-top: 20px;
+        }
+        .slide-in {
+            position: absolute;
+            right: -200px; /* Inicia fora da tela */
+            transition: right 0.5s ease-out;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px; /* Aumenta o tamanho da imagem */
+        }
+        .slide-in.show {
+            right: 20px; /* Desliza para o espaço vazio à direita */
+        }
+    </style>
+    <script>
+        function calcularLucro() {
+            // Obtém os valores dos inputs e converte para float
+            var vend1 = parseInt(document.getElementById('vend1').value);
+            var vend2 = parseInt(document.getElementById('vend2').value);
+            var gasto = parseFloat(document.getElementById('gasto').value);
+
+            // Verifica se as entradas são números válidos
+            if (isNaN(vend1) || isNaN(vend2) || isNaN(gasto)) {
+                alert("Por favor, insira valores numéricos válidos.");
+                return;
+            }
+
+            // Calcula o lucro
+            var lucro = (vend1 * 4) + (vend2 * 6) - gasto;
+
+            // Exibe o resultado
+            document.getElementById('resultado').textContent = 'O lucro foi de: R$ ' + lucro.toFixed(2);
+
+            // Mostra a imagem com a animação
+            var img = document.getElementById('slideImage');
+            img.classList.add('show');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Lucro</h1>
+        <p>Escreva a quantidade de doces vendidos a 4, a quantidade vendida a 6 e quanto foi gasto no preparo:</p>
+        <form onsubmit="calcularLucro(); return false;">
+            <label for="vend1">Quantidade vendida a 4:</label>
+            <input type="number" id="vend1" step="1" required><br>
+
+            <label for="vend2">Quantidade vendida a 6:</label>
+            <input type="number" id="vend2" step="1" required><br>
+
+            <label for="gasto">Gasto no preparo:</label>
+            <input type="number" id="gasto" step="0.01" required><br>
+
+            <input type="submit" value="Calcular Lucro">
+        </form>
+
+        <p id="resultado" class="result"></p>
+
+        <img src="https://i.imgur.com/1J327HO.png" id="slideImage" class="slide-in" alt="Imagem deslizante">
+    </div>
+</body>
+</html>
